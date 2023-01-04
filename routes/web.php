@@ -1,7 +1,9 @@
 <?php
 
+use App\Helpers\Redirecter;
 use Illuminate\Support\Facades\Route;
 use App\Models\Url;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get("/{short}", function (string $short){
-    $url = Url::where('gen_code','LIKE',$short)->firstOrFail();
-    return redirect($url->org_url);
+Route::get('/deactivate', function () {
+    return view('deactivate');
+})->name('deactivate');
+
+Route::get("/{short}", function  (string $short,Request $request){
+    $result=Redirecter::get($short,$request);
+    return redirect($result);
 })->name('redirect');

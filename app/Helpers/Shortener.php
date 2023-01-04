@@ -2,22 +2,18 @@
 
 namespace App\Helpers;
 
-use App\Exceptions\BadUrlException;
-use App\Models\Url;
-use Illuminate\Support\Facades\Http;
+
 
 class Shortener
 {
 
     protected static string $chars = "abcdfghjkmnpqrstvwxyz|ABCDFGHJKLMNPQRSTVWXYZ|0123456789";
 
-    // protected static function verifyUrlExists($url): bool
-    // {
-    //     return (Http::get($url)->successful());
-    // }
+  
 
     public static function generateRandomString(int $length): string
     {
+        
         $sets = explode('|', self::$chars);
         $all = '';
         $randString = '';
@@ -32,6 +28,10 @@ class Shortener
         return str_shuffle($randString);
     }
 
-
+    public static function fullurl(int $length)
+    {
+        $short_code=self::generateRandomString($length);
+        return "http://127.0.0.1:8000/".$short_code;
+    }
     
 }

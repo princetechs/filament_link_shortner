@@ -22,4 +22,9 @@ class Url extends Model
     {
      return $this->belongsTo(UrlProject::class,'project_id');
     }
+
+    public function url_analytics()
+    {
+        return $this->hasOne(UrlAnalytics::class,'url_id');
+    }
 }

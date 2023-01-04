@@ -18,18 +18,31 @@ class UrlProjectResource extends Resource
     protected static ?string $model = UrlProject::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-
+    // protected static ?string $navigationLabel = 'Custom Navigation Label';
+    protected static ?string $navigationGroup = 'Short_link Tool';
+    protected static function getNavigationGroup(): ?string
+    {
+        return strval(__('short-link::group-link'));
+    }
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+    protected static function getNavigationBadgeColor(): ?string
+{
+    return static::getModel()::count() > 10 ? 'secondary' : 'success';
+}
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required(),
+              
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Toggle::make('status')
-                    ->required(),
+                    ->required()
+                    ->default(true),
             ]);
     }
 
